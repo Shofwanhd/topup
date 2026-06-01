@@ -17,6 +17,12 @@ use Illuminate\Support\Str;
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true;
+    }
+
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
@@ -50,10 +56,5 @@ class User extends Authenticatable
         static::creating(function ($model) {
             $model->uuid = (string) Str::uuid();
         });
-    }
-
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return true;
     }
 }
